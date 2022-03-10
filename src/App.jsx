@@ -2,13 +2,15 @@ import react from "react";
 import { useState } from "react";
 import "./App.css";
 
-let studentArray = [];
+// let studentArray = [];
 
 function App() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [userClass, setUserClass] = useState("");
   const [rollNo, setRollNo] = useState("");
+  const [studentArray, setStudentArray] = useState([]);
+  const [theArray, setTheArray] = useState([]);
 
   const addStudent = () => {
     let stdata = {
@@ -17,8 +19,36 @@ function App() {
       userClass,
       rollNo,
     };
-    studentArray.push(stdata);
-    console.log(studentArray);
+    // setStudentArray.push(stdata);
+    if (userName.length == 0 || email.length == 0 || userClass.length == 0 || rollNo.length == 0) {
+      alert("Please fill all the fields");
+    }
+    
+     else {
+      if (studentArray.length == 0) {
+        if (email.includes("@") && email.includes(".")) {
+          setStudentArray([...studentArray, stdata]);}
+           else {
+             alert("Invalid Email");
+           }
+      }
+      else {
+       studentArray.map((value) => {
+         console.log(value);
+         if (userName==value.userName ) {
+          alert("UserName already exists");
+        } 
+        else if (email==value.email) {
+          alert("Email already exists");
+        }
+        else {
+          if (email.includes("@") && email.includes(".")) {
+         setStudentArray([...studentArray, stdata]);}
+          else {
+            alert("Invalid Email");
+          }}
+    });
+    }}
   };
 
   return (
@@ -73,11 +103,11 @@ function App() {
           {studentArray.map((value, index) => {
             return (
               <tr>
-                <td>{index + 1}</td>
-                <td>{value.userName}</td>
-                <td>{value.email}</td>
-                <td>{value.userClass}</td>
-                <td>{value.rollNo}</td>
+                <td key="{index + 1}">{index + 1}</td>
+                <td key="{value.userName}">{value.userName}</td>
+                <td key="{value.email}">{value.email}</td>
+                <td key="{value.userClass}">{value.userClass}</td>
+                <td key="{value.rollNo}">{value.rollNo}</td>
               </tr>
             );
           })}
