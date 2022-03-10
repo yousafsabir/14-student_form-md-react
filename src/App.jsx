@@ -53,7 +53,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Students' form</h1>
+      <h1>Student's form</h1>
       <div className="Form">
         <input
           type="text"
